@@ -1,0 +1,6 @@
+git config --global user.name erikepc
+git config --global user.email erike45@hotmail.com
+
+Abrir o Terminal: Ctrl + '
+
+dotnet new mvc -o Joke
