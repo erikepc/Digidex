@@ -1,6 +1,16 @@
+using Joke.Data;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+string conexao = builder.Configuration.GetConnectionString("Conexao");
+var server = ServerVersion.AutoDetect(conexao);
+
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseMySql(conexao, server)
+);
+
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
@@ -25,3 +35,4 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
+

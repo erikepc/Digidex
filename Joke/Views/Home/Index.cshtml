@@ -1,8 +1,65 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@model Joke.ViewModels.HomeVM
+@{
+    ViewData["Title"] = "Home";
+    string textoNormalizado(string texto)
+    {
+        return texto.ToLower().Replace(' ', '_');
+    }
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+
+<div class="pt-5 container">
+    <div class="row">
+        <div class="col mx-auto text-center">
+            <h1 class="display-4 text-white">Planetas do Sistema Solar</h1>
+            <div class="my-3">
+                <button id="btn-all" class="btn btn-md my-2 text-white bg-secondary btn-filter" onclick="filter('')"
+                    type="button">
+                    Ver Todos
+                </button>
+
+                @foreach (var tipo in Model.Tipos)
+                {
+                    <button id="btn-@textoNormalizado(tipo.Nome)" class="btn btn-sm my-2 text-white btn-filter"
+                        onclick="filter('@textoNormalizado(tipo.Nome)')" type="button">@tipo.Nome</button>
+                }
+            </div>
+        </div>
+    </div>
+
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-3">
+
+        @foreach (var Planetas in Model.Planetas)
+        {
+            <div class="col @textoNormalizado(Planetas.adicionarTipo.Nome)">
+                <div class="card @textoNormalizado(Planetas.adicionarTipo.Nome)">
+                    <a asp-action="Details" asp-route-id="@planetas.Id" class="text-decoration-none">
+                        <img src="@planetas.Imagem" class="card-img-top" alt="@planetas.Nome" />
+                    </a>
+                    <div class="card-body text-center">
+                        <a asp-action="Details" asp-route-id="@planetas.Id" class="text-decoration-none">
+                            <h5 class="card-text mb-1 text-white">@planetas.Nome</h5>
+                        </a>
+                        <div class="d-flex justify-content-between">
+                            <button class="btn btn-@textoNormalizado(planetas.adicionarTipo.Nome) text-white">
+                                @planetas.adicionarTipo.Nome
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+    <div id="zeroPlaneta" class="col-lg-12 text-center d-none mt-5" style="height: 350px;">
+        <h1 class="my-3 text-danger">Nenhum Planeta Encontrado</h1>
+    </div>
 </div>
+
+@section Styles {
+    <partial name="_StylePartial" model="Model.Tipos">
+}
+
+@section Scripts
+{
+    <script src="~/js/site.js"></script>
+}

@@ -1,27 +1,47 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Joke.Models;
+using Joke.Data;
+using Joke.ViewModels;
+using Microsoft.EntityFrameworkCore;
 
 namespace Joke.Controllers;
 
 public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
+    private readonly AppDbContext _context;
 
-    public HomeController(ILogger<HomeController> logger)
+    public HomeController(ILogger<HomeController> logger, AppDbContext context)
     {
         _logger = logger;
+        _context = context;
     }
 
     public IActionResult Index()
     {
-        return View();
+        HomeVM home = new() {
+            Tipos = [.. _context.Tipos],
+            Planets = [.. _context.Planets]
+        };
+        return View(home);
     }
+
+    /*public IActionResult Details(int id)
+    {
+        Professor professor = _context.Professores
+            .AsNoTracking()
+            .Include(p => p.AudioGenero)
+            .FirstOrDefault(p => p.Id == id);            
+        return View(professor);
+    }
+    
 
     public IActionResult Privacy()
     {
         return View();
     }
+    */
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
