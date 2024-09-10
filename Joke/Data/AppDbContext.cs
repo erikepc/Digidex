@@ -9,8 +9,8 @@ public class AppDbContext : DbContext
     {
     }
 
-    public Joke<Tipo> Tipos { get; set; }
-    public Joke<Planets> Planetss { get; set; }
+    public DbSet<Tipo> Tipos { get; set; }
+    public DbSet<Planeta> Planetas { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

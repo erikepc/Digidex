@@ -22,7 +22,7 @@ public class HomeController : Controller
     {
         HomeVM home = new() {
             Tipos = [.. _context.Tipos],
-            Planets = [.. _context.Planets]
+            Planetas = [.. _context.Planetas]
         };
         return View(home);
     }
@@ -36,12 +36,11 @@ public class HomeController : Controller
         return View(professor);
     }
     
-
-    public IActionResult Privacy()
+*/
+      public IActionResult Privacy()
     {
         return View();
     }
-    */
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()

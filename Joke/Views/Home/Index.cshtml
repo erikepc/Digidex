@@ -29,20 +29,20 @@
 
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-3">
 
-        @foreach (var Planetas in Model.Planetas)
+        @foreach (var Planeta in Model.Planetas)
         {
-            <div class="col @textoNormalizado(Planetas.adicionarTipo.Nome)">
-                <div class="card @textoNormalizado(Planetas.adicionarTipo.Nome)">
-                    <a asp-action="Details" asp-route-id="@planetas.Id" class="text-decoration-none">
-                        <img src="@planetas.Imagem" class="card-img-top" alt="@planetas.Nome" />
+            <div class="col @textoNormalizado(Planeta.AdicionarTipo.Nome)">
+                <div class="card @textoNormalizado(Planeta.AdicionarTipo.Nome)">
+                    <a asp-action="Details" asp-route-id="@Planeta.Id" class="text-decoration-none">
+                        <img src="@Planeta.Imagem" class="card-img-top" alt="@Planeta.Nome" />
                     </a>
                     <div class="card-body text-center">
-                        <a asp-action="Details" asp-route-id="@planetas.Id" class="text-decoration-none">
-                            <h5 class="card-text mb-1 text-white">@planetas.Nome</h5>
+                        <a asp-action="Details" asp-route-id="@Planeta.Id" class="text-decoration-none">
+                            <h5 class="card-text mb-1 text-white">@Planeta.Nome</h5>
                         </a>
                         <div class="d-flex justify-content-between">
-                            <button class="btn btn-@textoNormalizado(planetas.adicionarTipo.Nome) text-white">
-                                @planetas.adicionarTipo.Nome
+                            <button class="btn btn-@textoNormalizado(Planeta.AdicionarTipo.Nome) text-white">
+                                @Planeta.AdicionarTipo.Nome
                             </button>
                         </div>
                     </div>

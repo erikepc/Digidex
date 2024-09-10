@@ -11,8 +11,8 @@ public class Tipo
 
     [Required]
     [StringLength(30)]
-    public string Nome { get; set; }
+    public string? Nome { get; set; }
 
     [StringLength(30)]
-    public string Cor { get; set; }
+    public string? Cor { get; set; }
 }
