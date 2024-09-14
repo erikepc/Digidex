@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-string conexao = builder.Configuration.GetConnectionString("Conexao");
+string conexao = builder.Configuration.GetConnectionString("JokeConexao");
 var server = ServerVersion.AutoDetect(conexao);
 
 builder.Services.AddDbContext<AppDbContext>(options =>

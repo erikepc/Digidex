@@ -2,8 +2,8 @@ using Joke.Models;
 
 namespace Joke.ViewModels;
 
-public class HomeVM
+public class HomeVM 
 {
-    public required List<Tipo> Tipos { get; set; }
-    public required List<Planeta> Planetas { get; set; }
+    public List<Tipo>? Tipos { get; set; }
+    public List<Planeta>? Planetas { get; set; }
 }

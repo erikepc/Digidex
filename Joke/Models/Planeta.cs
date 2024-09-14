@@ -22,10 +22,10 @@ public class Planeta
     public string? Composicao { get; set; }
 
     [StringLength(200)]
-    public string? Imagem { get; set; }
+    public string? Foto { get; set; }
 
     [Required]
-    public int AdicionarTipoId { get; set; }
-    [ForeignKey("adicionarTipoId")]
-    public Tipo? AdicionarTipo {get; set;}
+    public int AdicionarTIpoId { get; set; }
+    [ForeignKey("AdicionarTipoId")]
+    public Tipo AdicionarTipo { get; set; }
 }

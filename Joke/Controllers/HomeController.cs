@@ -21,8 +21,8 @@ public class HomeController : Controller
     public IActionResult Index()
     {
         HomeVM home = new() {
-            Tipos = [.. _context.Tipos],
-            Planetas = [.. _context.Planetas]
+            Tipos = [.. _context.Tipos.ToList()],
+            Planetas = [.. _context.Planetas.ToList()]
         };
         return View(home);
     }
