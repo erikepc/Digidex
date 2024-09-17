@@ -11,7 +11,7 @@
 <style>
     /* Fundo da página com azul-marinho escuro e textura de bolinhas */
     body {
-        background-color: #001f3f;
+        background-color: #000000;
         background-image: radial-gradient(circle, rgba(255,255,255,0.15) 1px, transparent 1px);
         background-size: 40px 40px;
         color: #ffffff;
@@ -19,10 +19,12 @@
 
     /* Estilos para os cards */
     .planet-card {
-        background-color: rgba(255, 255, 255, 0.1);
+        /*background-color: rgba(255, 255, 255, 0.1);*/
         border: 1px solid rgba(255, 255, 255, 0.2);
         border-radius: 8px;
-        transition: transform 0.3s, box-shadow 0.3s;
+        /*transition: transform 0.3s, box-shadow 0.3s;*/
+        text-align: center;
+        padding: 10px;
     }
 
     .planet-card:hover {
@@ -37,16 +39,17 @@
         height: 250px;
         object-fit: cover;
         padding-left: 5px;
+        text-align: center;
     }
 
     .planet-card .card-body {
-        padding: 15px;
+         text-align: center;
     }
 
     /* Mini card para exibir o tipo de planeta */
     .planet-type-card {
         border-radius: 4px;
-        padding: 5px 10px;
+        padding: 5px 5px; 
         margin-top: 10px;
         text-align: center;
         font-size: 0.9rem;
