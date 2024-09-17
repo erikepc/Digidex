@@ -1,0 +1,75 @@
+@model Joke.ViewModels.DetailsVM
+@{
+    ViewData["Title"] = "Planeta";
+    
+    // Função para ajustar a cor de fundo com transparência
+    string BackgroundColor(string cor)
+    {
+        return cor.Replace("1)", "0.75)");
+    };
+}
+
+<style>
+    /* Fundo da página com azul-marinho escuro e textura de bolinhas */
+    body {
+        background-color: #001f3f;
+        background-image: radial-gradient(circle, rgba(255,255,255,0.15) 1px, transparent 1px);
+        background-size: 40px 40px;
+        color: #ffffff;
+    }
+ </style>   
+
+<div class="container text-white">
+    <div class="row">
+        <!-- Botão para o planeta anterior -->
+        <div class="col text-center">
+            @if (Model.Anterior != null)
+            {
+            <a asp-action="Details" asp-route-id="@Model.Anterior.Id" class="btn btn-lg btn-outline-light text-white">
+                @Model.Anterior.Nome
+            </a>
+            }
+        </div>
+
+        <!-- Nome e número do planeta atual -->
+        <div class="col text-center">
+            <h1 class="fs-1">@Model.Atual.Nome</h1>
+        </div>
+
+        <!-- Botão para o próximo planeta -->
+        <div class="col text-center">
+            @if (Model.Proximo != null)
+            {
+            <a asp-action="Details" asp-route-id="@Model.Proximo.Id" class="btn btn-lg btn-outline-light text-white">
+                @Model.Proximo.Nome
+            </a>
+            }
+        </div>
+    </div>
+
+    <div class="row mt-5">
+        <!-- Imagem do planeta -->
+        <div class="col-lg-5 p-0">
+            <img class="img-fluid cursor-pointer" src="@Model.Atual.Foto" alt="@Model.Atual.Nome" style="width: 300px; height: 287px; object-fit: cover;">
+        </div>
+
+        <!-- Informações do planeta -->
+        <div class="col-lg-7 fs-5 mt-4">
+            <p class="mb-3"><strong>Descrição:</strong> @Model.Atual.Descricao</p>
+            <p class="mb-3"><strong>Composição:</strong> @Model.Atual.Composicao</p>
+            <p class="mb-3"><strong>Idade:</strong> @Model.Atual.Idade bilhões de anos</p>
+            <p class="fw-bold">Tipo</p>
+            <!-- Mini card do tipo com cor transparente -->
+            <div class="d-flex gap-2 my-2">
+                <span class="btn btn-lg text-white" style="background-color:@BackgroundColor(Model.Atual.AdicionarTipo.Cor);">
+                    @Model.Atual.AdicionarTipo.Nome
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Scripts -->
+@section Scripts {
+    <script src="~/js/site.js"></script>
+}

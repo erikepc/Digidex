@@ -27,16 +27,61 @@ public class HomeController : Controller
         return View(home);
     }
 
-    /*public IActionResult Details(int id)
-    {
-        Professor professor = _context.Professores
-            .AsNoTracking()
-            .Include(p => p.AudioGenero)
-            .FirstOrDefault(p => p.Id == id);            
-        return View(professor);
-    }
-    
-*/
+   public IActionResult Details(int id)
+        {
+            // Obtém o planeta atual com o tipo relacionado
+            var planeta = _context.Planetas
+                .Include(p => p.AdicionarTipo) // Inclui o tipo do planeta
+                .AsNoTracking() // Melhorar a performance se a entidade não for alterada
+                .FirstOrDefault(p => p.Id == id);
+
+            if (planeta == null)
+            {
+                return NotFound(); // Retorna uma página 404 se o planeta não for encontrado
+            }
+
+            // Obtém o planeta anterior e o próximo
+            var anterior = _context.Planetas
+                .Where(p => p.Id < id)
+                .OrderByDescending(p => p.Id)
+                .FirstOrDefault();
+
+            var proximo = _context.Planetas
+                .Where(p => p.Id > id)
+                .OrderBy(p => p.Id)
+                .FirstOrDefault();
+
+            // Cria o ViewModel com os dados
+            var viewModel = new DetailsVM
+            {
+                Atual = new PlanetaVM
+                {
+                    Id = planeta.Id,
+                    Nome = planeta.Nome,
+                    Idade = planeta.Idade,
+                    Descricao = planeta.Descricao,
+                    Foto = planeta.Foto,
+                    Composicao = planeta.Composicao,
+                    AdicionarTipo = new TipoVM
+                    {
+                        Nome = planeta.AdicionarTipo.Nome,
+                        Cor = planeta.AdicionarTipo.Cor
+                    }
+                },
+                Anterior = anterior != null ? new PlanetaVM
+                {
+                    Id = anterior.Id,
+                    Nome = anterior.Nome
+                } : null,
+                Proximo = proximo != null ? new PlanetaVM
+                {
+                    Id = proximo.Id,
+                    Nome = proximo.Nome
+                } : null
+            };
+
+            return View(viewModel); // Retorna a view com o ViewModel
+        }
       public IActionResult Privacy()
     {
         return View();

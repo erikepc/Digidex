@@ -1,58 +1,135 @@
 ﻿@model Joke.ViewModels.HomeVM
-			@{
-				ViewData["Title"] = "Home";
-				string BackgroundColor(string cor)
-				{
-					return cor.Replace("1)", "0.75)");
-				};
-			}
+@{
+    ViewData["Title"] = "Home";
+    string BackgroundColor(string cor)
+    {
+        return cor.Replace("1)", "0.75)");
+    };
+}
 
-			<div class="pt-5 container">
-				<div class="row">
-					<div class="col mx-auto text-center">
-						<h1 class="display-4 text-white">Planetas do Sistema Solar</h1>
-						<div class="my-3">
-							<button id="btn-all" class="btn btn-md my-2 text-white bg-secondary btn-filter" onclick="filter('')">
-								Ver Todos
-							</button>
+<!-- Estilos customizados -->
+<style>
+    /* Fundo da página com azul-marinho escuro e textura de bolinhas */
+    body {
+        background-color: #001f3f;
+        background-image: radial-gradient(circle, rgba(255,255,255,0.15) 1px, transparent 1px);
+        background-size: 40px 40px;
+        color: #ffffff;
+    }
 
-							@foreach (var tipo in Model.Tipos)
-							{
-								<button id="btn-@tipo.Nome" class="btn btn-sm my-2 text-white btn-filter"
-									style="background-color:@tipo.Cor" onclick="filter('@tipo.Nome')">@tipo.Nome</button>
-							}
-						</div>
-					</div>
-				</div>
+    /* Estilos para os cards */
+    .planet-card {
+        background-color: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 8px;
+        transition: transform 0.3s, box-shadow 0.3s;
+    }
 
-				<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-3">
+    .planet-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 10px 20px rgba(255, 255, 255, 0.2);
+    }
 
-					@foreach (var planeta in Model.Planetas)
-					{
-						<!-- Card Pokemon - Inicio -->
-						<div>
-							<a asp-action="Details" asp-route-id="@planeta.Id" class="text-decoration-none">
-								<div>
-									<img src="@planeta.Foto" class="card-img-top" alt="@planeta.Nome" />
-									<div class="card-body">
-										<h3 class="card-title text-dark">@planeta.Nome</h3>
-										<div class="d-flex justify-content-between align-items-center">
-											<div class="d-flex gap-2 my-2">
-												
-											</div>
-										</div>
-									</div>
-								</div>
-							</a>
-						</div>
-						<!-- Card Pokemon - Fim -->
-					}
-				</div>
-				<div id="zeroPokemon" class="col-lg-12 text-center d-none mt-5" style="height: 350px;">
-					<h1 class="my-3 text-danger">Nenhum Planeta Encontrado</h1>
-				</div>
-			</div>
+    .planet-card img {
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
+        width: 300px;
+        height: 287px;
+        object-fit: cover;
+    }
 
-			@section Scripts {
-				<script src="~/js/site.js"></script>
-			}	
+    .planet-card .card-body {
+        padding: 15px;
+    }
+
+    /* Mini card para exibir o tipo de planeta */
+    .planet-type-card {
+        border-radius: 4px;
+        padding: 5px 10px;
+        margin-top: 10px;
+        text-align: center;
+        font-size: 0.9rem;
+        color: #ffffff;
+    }
+
+    /* Efeito de transparência no mini card */
+    .planet-type-card[data-bg-color] {
+        background-color: rgba(255, 255, 255, 0.2); /* Default transparency */
+    }
+
+    .planet-type-card[data-bg-color]:before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: inherit;
+        opacity: 0.75;
+    }
+
+    /* Estilo do botão */
+    .btn-filter {
+        transition: background-color 0.3s;
+    }
+
+    .btn-filter:hover {
+        background-color: rgba(255, 255, 255, 0.2);
+    }
+
+    /* Estilos adicionais */
+    .text-gold {
+        color: #daa520;
+    }
+
+    h3 {
+        font-size: 1.5rem;
+    }
+</style>
+
+<div class="pt-5 container">
+    <div class="row">
+        <div class="col mx-auto text-center">
+            <h1 class="display-4 text-white">Planetas do Sistema Solar</h1>
+            <div class="my-3">
+                <button id="btn-all" class="btn btn-md my-2 text-white bg-secondary btn-filter" onclick="filter('')">
+                    Ver Todos
+                </button>
+
+                @foreach (var tipo in Model.Tipos)
+                {
+                    <button id="btn-@tipo.Nome" class="btn btn-sm my-2 text-white btn-filter"
+                        style="background-color:@tipo.Cor" onclick="filter('@tipo.Nome')">@tipo.Nome</button>
+                }
+            </div>
+        </div>
+    </div>
+
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-3">
+        @foreach (var planeta in Model.Planetas)
+        {
+            <!-- Card Planeta - Inicio -->
+            <div class="planet-card">
+                <a asp-action="Details" asp-route-id="@planeta.Id" class="text-decoration-none">
+                    <img src="@planeta.Foto" class="card-img-top" alt="@planeta.Nome" />
+                    <div class="card-body">
+                        <h3 class="card-title text-white">@planeta.Nome</h3>
+                        <!-- Mini card exibindo o tipo de planeta com cor e transparência -->
+                        <div class="planet-type-card" style="background-color: @BackgroundColor(planeta.AdicionarTipo.Cor);">
+                            @planeta.AdicionarTipo.Nome
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <!-- Card Planeta - Fim -->
+        }
+    </div>
+
+    <div id="zeroPlaneta" class="col-lg-12 text-center d-none mt-5" style="height: 350px;">
+        <h1 class="my-3 text-danger">Nenhum Planeta Encontrado</h1>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/js/site.js"></script>
+}
