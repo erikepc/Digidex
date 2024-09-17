@@ -22,7 +22,7 @@ public class Planeta
     public string? Composicao { get; set; }
 
     [StringLength(200)]
-    public string? Foto { get; set; }
+    public string Foto { get; set; }
 
     [Required]
     public int AdicionarTIpoId { get; set; }
