@@ -1,0 +1,37 @@
+create database Joke;
+
+use Joke;
+
+create table tipo
+(
+    id   int not null auto_increment primary key,
+    nome varchar(10),
+    cor  varchar(30)
+);
+
+INSERT INTO tipo VALUES
+    (1, 'Terrestre', 'rgba(139, 0, 0, 1)'),    -- Rock: Deep Red
+    (2, 'Gasoso', 'rgba(210, 105, 30, 1)'), -- Country: Chocolate Brown
+    (3, 'Gelado', 'rgba(75, 0, 130, 1)'); -- Discoteca: Indigo
+
+create table planeta
+(
+    id              int not null auto_increment primary key,
+    nome            varchar(50),
+    idade         	numeric(2,1),
+    descricao		varchar(400),
+    foto			varchar(200),
+    composicao      varchar(200),
+    adicionarTipoId			int,
+    foreign key (adicionarTipoId) references tipo(Id)
+);
+
+INSERT INTO planeta VALUES
+(1,'Mercúrio', 4.5, 'Mercúrio é o menor e mais interno planeta do Sistema Solar, orbitando o Sol a cada 87,97 dias terrestres.', '/img/mercurio.gif','Ferro',1),
+(2,'Vênus', 4.5, 'Vênus é o segundo planeta do Sistema Solar em ordem de distância a partir do Sol e é o mais próximo da Terra.', '/img/venus.gif','Dióxido de Carbono',1),
+(3,'Terra', 4.5, 'A Terra é o terceiro planeta mais próximo do Sol, o mais denso e o quinto maior dos oito planetas do Sistema Solar.', '/img/terra.gif','Nitrogênio e Oxigênio',1),
+(4,'Marte', 4.5, 'Marte é o quarto planeta a partir do Sol, o segundo menor do Sistema Solar, depois de Mercúrio.', '/img/marte.gif','Dióxido de Carbono',1),
+(5,'Júpiter', 4.5, 'Júpiter é o maior planeta do Sistema Solar, sendo duas vezes mais massivo do que todos os outros planetas juntos.', '/img/jupiter.gif','Hidrogênio e Hélio',2),
+(6,'Saturno', 4.5, 'Saturno é o sexto planeta a partir do Sol e o segundo maior do Sistema Solar, atrás apenas de Júpiter.', '/img/saturno.gif','Hidrogênio e Hélio',2),
+(7,'Urano', 4.5, 'Urano é o sétimo planeta a partir do Sol e o terceiro maior do Sistema Solar, tanto em diâmetro quanto em massa.', '/img/urano.gif','Gelo e Metano',3),
+(8,'Netuno', 4.5, 'Netuno é o oitavo planeta a partir do Sol e o último do Sistema Solar.', '/img/netuno.gif','Hidrogênio, Hélio e Metano',3);
